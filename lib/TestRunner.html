@@ -23,9 +23,7 @@
         for (var i = 0, len = specs.length; i < len; i++)
             specs[i] = decodeURIComponent(specs[i]);
 
-        //var specsPath = specs.shift();
-
-        console.log(specs.length, "specs detected:", specs);
+        console.log("%s specs detected: %s", specs.length, specs);
     </script>
 
 
@@ -77,13 +75,6 @@
     </script>
 </head>
 <body>
-
-<script type="text/javascript">
-  var console_reporter = new jasmine.ConsoleReporter()
-  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-  jasmine.getEnv().addReporter(console_reporter);
-  jasmine.getEnv().execute();
-</script>
 
 </body>
 </html>
