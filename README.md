@@ -28,5 +28,6 @@ The spec file `specs/X_spec.js` will look like this:
 	});
 
 
-*Please not that the _spec suffix is mandatory for the script to automatically identify the spec files*
+**Please note that the _spec suffix is mandatory for the script to automatically identify the spec files**
+**Please note that at the moment the test command can only be run from the project root**
 
