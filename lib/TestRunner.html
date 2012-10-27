@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  
+    <!-- Include the Jasmine assets for running in an HTML page. -->
+    <link rel="stylesheet" type="text/css" href="jasmine-1.2.0/jasmine.css"></link>
+    <script type="text/javascript" src="jasmine-1.2.0/jasmine.js"></script>
+    <script type="text/javascript" src="jasmine-1.2.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="console-runner.js"></script>
+    <script type="text/javascript">
+        
+        //get the specs to load from document hash
+        var specs = document.location.hash.substr(1);
+        if (!specs) 
+            throw 'no specs in document hash, this probably means you specified a spec directory which is empty or doesn\'t exit';
+
+        specs = specs.split(',');
+        if (specs.length === 0)
+            throw 'no specs, this is a bug...';
+
+        for (var i = 0, len = specs.length; i < len; i++)
+            specs[i] = decodeURIComponent(specs[i]);
+
+        //var specsPath = specs.shift();
+
+        console.log(specs.length, "specs detected:", specs);
+    </script>
+
+
+    <!--
+        Since we are in the "test" directory, not in the standard
+        "js" directory, we need to define the path prefix' for the
+        RequireJS modules so that the modules can be found from the
+        tests running in the Spec directory.
+    -->
+    <script type="text/javascript">
+        var require = {
+            paths: {
+                "domReady": "../lib/require/domReady"
+            }
+        };
+
+        //require.paths[specsPath] = specsPath  + "/";
+
+    </script>
+    <script type="text/javascript" data-main="../src/" src="require/require.js"></script>
+
+    <!--
+        Use RequireJS to load and execute the actual Jasmine test
+        specifications (ie. specs).
+
+        NOTE: We have to use the domReady! plugin since the Jasmine
+        reporter needs to have access to the BODY tag of the document
+        when outputting the results of the test.
+    -->
+    <script type="text/javascript">
+        var dependencies = ['domReady'].concat(specs);
+        require(
+            dependencies,
+            function( document ){
+
+                // Set up the HTML reporter - this is reponsible for
+                // aggregating the results reported by Jasmine as the
+                // tests and suites are executed.
+                jasmine.getEnv().addReporter(
+                    new jasmine.HtmlReporter()
+                );
+
+                // Run all the loaded test specs.
+                jasmine.getEnv().execute();
+
+            }
+        );
+
+    </script>
+</head>
+<body>
+
+<script type="text/javascript">
+  var console_reporter = new jasmine.ConsoleReporter()
+  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().addReporter(console_reporter);
+  jasmine.getEnv().execute();
+</script>
+
+</body>
+</html>
+
