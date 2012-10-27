@@ -9,26 +9,23 @@ A template for a javascript test driven development project. Uses requireJS, jas
 
 Given the following "class" in `src/X.js`:
 
-`
-define(function() {
-	function X() {
-	}
+	define(function() {
+		function X() {
+		}
 
-	return X;
-});
-`
+		return X;
+	});
 
 The spec will look like this:
 
-`
-define(['X'], function(X) {
-	describe('X', function() {
-		it('is an X', function() {
-			expect(true).toBe(true);
+
+	define(['X'], function(X) {
+		describe('X', function() {
+			it('is an X', function() {
+				expect(true).toBe(true);
+			});
 		});
 	});
-});
 
-`
 
 
